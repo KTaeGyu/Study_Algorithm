@@ -31,5 +31,3 @@ while len(cards) > 1:
 
 num = (list(cards))
 print(int(num[0]))
-
-# 이건 되넹
