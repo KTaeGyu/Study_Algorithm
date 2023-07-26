@@ -19,4 +19,3 @@ for j in range(2, k+1):
 
 print(int(numer / demo))
 
-# 다 구해놓고 마지막에 int안하고 float형태로 제출해서 한번 틀림 ㅜ
