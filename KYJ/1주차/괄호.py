@@ -58,5 +58,3 @@ for j in range(n):
         print('YES')
     else:
         print('NO')
-
-# 마자땅
