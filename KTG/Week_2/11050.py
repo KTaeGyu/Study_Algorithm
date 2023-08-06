@@ -7,21 +7,36 @@
 
 # ------------------------------------------------------------------------------------------------------예제 출력
 # (N/K)를 출력한다.
+from math import factorial
 
-N, K = int(input().split())
+N, K = map(int, input().split())
 
-def factorial(num):
-    if num == 1:
-        return 1
-    else:
-        return num * factorial(num - 1)
+def combination(num1, num2):
+    result = factorial(num1) / factorial(num1 - num2) / factorial(num2)
+    return int(result)
 
-print(factorial(N), factorial(K))
+print(combination(N, K))
 
 # --------------------------------------------------------------------------------------------------알고리즘 분류
-
+# 수학
+# 구현
+# 조합론
 
 # ----------------------------------------------------------------------------------------------------------풀이
+# 직접 구현했다가 런타임 에러 (재귀함수가 깊어지면 날 수 있음)
+# N, K = map(int, input().split())
+
+# def factorial(num):
+#     if num == 1:
+#         return 1
+#     else:
+#         return num * factorial(num - 1)
+
+# def combination(num1, num2):
+#     result = factorial(num1) / factorial(num1 - num2) / factorial(num2)
+#     return int(result)
+
+# print(combination(N, K))
 
 
 # ------------------------------------------------------------------------------------------------------풀이 과정
