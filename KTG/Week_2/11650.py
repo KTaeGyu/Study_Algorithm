@@ -24,9 +24,13 @@
 3 4
 """
 # --------------------------------------------------------------------------------------------------알고리즘 분류
+<<<<<<< HEAD
 arr = [0, 1, 2, 4, 3]
 queries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]
 
+=======
+# 정렬
+>>>>>>> b4fca9ba19c9bd6543d5e3030b19b01de5398286
 
 def solution(arr, queries):
     answer = []
@@ -45,7 +49,12 @@ def solution(arr, queries):
 print(solution(arr, queries))
 
 # ----------------------------------------------------------------------------------------------------------풀이
+cord = []
+for T in range(int(input())):
+    x, y = map(int, input().split())
+    cord.append((x, y))
 
+<<<<<<< HEAD
 # arr = [0, 1, 1, 1, 0]
 
 # # def top(arr):
@@ -75,6 +84,45 @@ print(solution(arr, queries))
 
 # print(solution(arr))
 
+=======
+cord = sorted(cord, key=lambda x: (x[0], x[1]))
+>>>>>>> b4fca9ba19c9bd6543d5e3030b19b01de5398286
 
+for i in cord:
+    print(*i)
+ 
 # ------------------------------------------------------------------------------------------------------풀이 과정
-# 
+# 카운팅 정렬을 사용해서도 해보고 싶음 -> 음수때문에 실패함
+# N = int(input())
+# cord = []
+# for n in range(N):
+#     x, y = map(int, input().split())
+#     cord.append((x, y))
+
+# max_x = 0
+# for i in cord:
+#     if max_x < i[0]:
+#         max_x = i[0]
+
+# arr_x = [0]*(max_x + 1)
+
+# for i in cord:
+#     arr_x[i[0]] += 1
+
+# for i in range(1, max_x + 1):
+#     arr_x[i] += arr_x[i-1]
+
+# nl = [0]*N
+# nl_x = [[] for _ in range(max_x + 1)]
+# for i in range(N-1, -1, -1):
+#     nl_x[cord[i][0]].append(cord[i])
+    
+#     max_y = 0
+#     for j in range(len(nl_x[i])):
+#         if max_y < nl_x[i][j][1]:
+#             max_y = nl_x[i][j][1]
+    
+#     arr_y = [0](max_y + 1)
+
+#     for j in nl_x[i]:
+#         arr_y[j[1]]
