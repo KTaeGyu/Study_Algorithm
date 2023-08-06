@@ -24,73 +24,35 @@
 3 4
 """
 # --------------------------------------------------------------------------------------------------알고리즘 분류
-<<<<<<< HEAD
-arr = [0, 1, 2, 4, 3]
-queries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]
-
-=======
 # 정렬
->>>>>>> b4fca9ba19c9bd6543d5e3030b19b01de5398286
-
-def solution(arr, queries):
-    answer = []
-    for s, e, k in queries:
-
-        nl = [arr[i] for i in range(s, e+1) if arr[i] > k]
-
-        if nl == []:
-            answer.append(-1)
-        elif nl != []:
-            answer.append(min(nl))
-
-    return answer
-
-
-print(solution(arr, queries))
 
 # ----------------------------------------------------------------------------------------------------------풀이
+
+# def solution(arr, queries):
+#     answer = []
+#     for s, e, k in queries:
+
+#         nl = [arr[i] for i in range(s, e+1) if arr[i] > k]
+
+#         if nl == []:
+#             answer.append(-1)
+#         elif nl != []:
+#             answer.append(min(nl))
+
+#     return answer
+
+# print(solution(arr, queries))
+
 cord = []
 for T in range(int(input())):
     x, y = map(int, input().split())
     cord.append((x, y))
 
-<<<<<<< HEAD
-# arr = [0, 1, 1, 1, 0]
-
-# # def top(arr):
-# #     if arr != []:
-# #         a = arr.pop()
-# #         arr.append(a)
-# #         return a
-
-
-# def solution(arr):
-#     i = 0
-#     stk = []
-#     while i < len(arr):
-#         if stk == []:
-#             stk.append(arr[i])
-#             i += 1
-#         else:
-#             if stk[len(stk)-1] == arr[i]:
-#                 stk.pop()
-#                 i += 1
-#             else:
-#                 stk.append(arr[i])
-#                 i += 1
-        
-#     return stk
-
-
-# print(solution(arr))
-
-=======
 cord = sorted(cord, key=lambda x: (x[0], x[1]))
->>>>>>> b4fca9ba19c9bd6543d5e3030b19b01de5398286
 
 for i in cord:
     print(*i)
- 
+
 # ------------------------------------------------------------------------------------------------------풀이 과정
 # 카운팅 정렬을 사용해서도 해보고 싶음 -> 음수때문에 실패함
 # N = int(input())
