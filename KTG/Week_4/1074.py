@@ -21,26 +21,45 @@ cnt = 0
 
 def z_search(num, sy, sx):
     global cnt
-    z_order = [[sy + 0, sx + 0], [sy + 0, sx + 2 ** (num - 1)], [sy + 2 ** (num - 1), sx + 0], [sy + 2 ** (num - 1), sx + 2 ** (num - 1)]]
     if num == 1:
-        for y, x in z_order:
-            if y == r and x == c:
-                raise ValueError
-            else:
-                cnt += 1
+        if sy == 0 and sx == 0:
+            return
+        elif sy == 0 and sx == 1:
+            cnt += 1
+        elif sy == 1 and sx == 0:
+            cnt += 2
+        elif sy == 1 and sx == 1:
+            cnt += 3
     else:
-        for y, x in z_order:
-            z_search(num - 1, y, x)
+        if sy < 2 ** (num - 1) and sx < 2 ** (num - 1):
+            ny = sy
+            nx = sx
+            z_search(num-1, ny, nx) 
+        elif sy < 2 ** (num - 1) and sx >= 2 ** (num - 1):
+            ny = sy
+            nx = sx - 2 ** (num - 1)
+            cnt += 4 ** (num - 1)
+            z_search(num-1, ny, nx)
+        elif sy >= 2 ** (num - 1) and sx < 2 ** (num - 1):
+            ny = sy - 2 ** (num - 1)
+            nx = sx
+            cnt += 4 ** (num - 1) * 2
+            z_search(num-1, ny, nx)
+        elif sy >= 2 ** (num - 1) and sx >= 2 ** (num - 1):
+            ny = sy - 2 ** (num - 1)
+            nx = sx - 2 ** (num - 1)
+            cnt += 4 ** (num - 1) * 3
+            z_search(num-1, ny, nx)
 
 
-try:
-    z_search(N, 0, 0)
-except ValueError:
-    print(cnt)
+z_search(N, r, c)
+print(cnt)
+
 
 """풀이 과정
 처음에 재귀를 이용하여 풀어보았지만, 시간초과가 났음.
-분할 정복에 대한 개념을 알아야 할듯. 공부하고 다시 풀겠음.
+분할 정복에 대한 개념을 알아야 할듯. 공부하고 다시 풀음.
+Z 모양을 작은것 부터 순서대로 카운트 하는 방법 대신 큰 네 구역으로 나누어 카운트를 한번에 더하고 좌표를 옮기는 방식으로 바꾸어 시간복잡도를 해결함.
 N, r, c = map(int, input().split())
 cnt = 0
 
