@@ -9,13 +9,21 @@
 import sys
 sys.stdin = open("../test.txt", "r")
 
+
+def solve(a, b, c):
+    if b == 1:
+        return a % c
+    else:
+        nxt = solve(a, b//2, c)
+        if b % 2 == 0:
+            return nxt * nxt % c
+        else:
+            return nxt * nxt * a % c
+
+
 A, B, C = map(int, input().split())
-dp = [0] * (B+1)
-dp[0] = 0
-for i in range(1, B+1):
-    dp[i] = A**i % C
-print(dp)
-print(dp[B])
+result = solve(A, B, C)
+print(result)
 
 """
 10 11 12
