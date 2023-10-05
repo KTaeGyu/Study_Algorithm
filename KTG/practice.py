@@ -33,7 +33,6 @@ for tc in range(1, T+1):
     dijkstra(0, 0)
     print(f'#{tc} {v[N - 1][N - 1]}')
 
-
 """
 def bfs(r, c):
     dir = [(1, 0), (0, 1), (-1, 0), (0, -1)]
