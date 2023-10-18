@@ -1,64 +1,53 @@
 import sys
 sys.stdin = open("test.txt", "r")
-import heapq
+from collections import deque
 
 
-def dijkstra(y, x):
-    pq = []
-    heapq.heappush(pq, (0, y, x))
-    v[y][x] = 0
-    direction = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-    while pq:
-        cost = 1
-        cur_cost, cy, cx = heapq.heappop(pq)
-        if v[cy][cx] < cur_cost:
-            continue
-        for dy, dx in direction:
+def bfs(y, x):
+    q = deque()
+    q.append((y, x, arr[0][0]))
+    v = [[float('inf')] * N for _ in range(N)]
+    v[0][0] = arr[0][0]
+    while q:
+        cy, cx, fuel = q.pop()
+        for dy, dx in directions:
             ny, nx = cy + dy, cx + dx
-            if 0 <= ny < N and 0 <= nx < N:
-                next_cost = cost + cur_cost
-                if arr[ny][nx] > arr[cy][cx]:
-                    next_cost = cost + cur_cost + arr[ny][nx] - arr[cy][cx]
-                if v[ny][nx] <= next_cost:
-                    continue
-                v[ny][nx] = next_cost
-                heapq.heappush(pq, (next_cost, ny, nx))
+            if 0 > ny or ny >= N or 0 > nx or nx >= N:
+                continue
+            if v[ny][nx] <= fuel + arr[ny][nx]:
+                continue
+            q.append((ny, nx, fuel + arr[ny][nx]))
+            v[ny][nx] = fuel + arr[ny][nx]
+        if (cy, cx) == (TN[0], TN[1]):
+            if v[TN[2]][TN[3]] <= fuel + TN[4]:
+                continue
+            q.append((TN[2], TN[3], fuel + TN[4]))
+            v[TN[2]][TN[3]] = fuel + TN[4]
+        if (cy, cx) == (TN[2], TN[3]):
+            if v[TN[0]][TN[1]] <= fuel + TN[4]:
+                continue
+            q.append((TN[0], TN[1], fuel + TN[4]))
+            v[TN[0]][TN[1]] = fuel + TN[4]
+    return v
 
 
 T = int(input())
 for tc in range(1, T+1):
-    N = int(input())
+    N, M = map(int, input().split())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    v = [[float('inf')] * N for _ in range(N)]
-    dijkstra(0, 0)
-    print(f'#{tc} {v[N - 1][N - 1]}')
+    TN = list(map(int, input().split()))
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    ans = bfs(0, 0)[N-1][N-1]
+    print(ans)
 
 """
-def bfs(r, c):
-    dir = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-    visited[r][c] = 0 #시작지점 연료소비량 0 초기화
-    que = deque()
-    que.append((r, c))
-    while que: #큐에 노드가 있으면 계속 탐색
-        r, c = que.popleft()
-        for dr, dc in dir:
-            nr, nc = r + dr, c + dc
-            #이동 가능한 범위 내에 있을 때
-            if 0 <= nr < N and 0 <= nc < N:
-                val = 0
-                #1. 현재 지점보다 높은 지역으로 이동할떄 높이 차이 계산
-                if arr[nr][nc] > arr[r][c]:
-                    val = arr[nr][nc] - arr[r][c]
-                #2. 이동하려는 위치의 연료 소비량 갱신
-                if visited[r][c] + 1 + val < visited[nr][nc]:
-                    visited[nr][nc] = visited[r][c] + 1 + val
-                    que.append((nr, nc))
-    return visited[N-1][N-1]
-T = int(input())
-for tc in range(1, T + 1):
-    N = int(input())
-    arr = [list(map(int, input().split())) for _ in range(N)]
-    visited = [[float('inf')] * N for _ in range(N)]
-    bfs(0, 0)
-    print(f'#{tc} {visited[N-1][N-1]}')
+1
+6 1
+5 1 8 0 5 4 
+7 6 4 5 3 5 
+4 0 2 7 8 6 
+3 2 8 7 8 3 
+9 0 0 0 2 8 
+4 9 3 5 4 0 
+1 3 1 5 1
 """
