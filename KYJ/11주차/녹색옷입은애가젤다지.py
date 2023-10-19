@@ -4,6 +4,9 @@
 잃는 금액의 최소값 구하기
 
 다잌스트라
+
+https://memezz.tistory.com/48
+
 '''
 import heapq
 
