@@ -22,7 +22,7 @@
 # 입력으로 주어진 대로 움직여서 킹이나 돌이 체스판 밖으로 나갈 경우에는 그 이동은 건너 뛰고 다음 이동을 한다.
 # 킹과 돌의 마지막 위치를 구하는 프로그램을 작성하시오.
 
-    
+# 함수 정의
 def move_R(start):
     if start[0] < 72:
         start[0] += 1
@@ -52,21 +52,27 @@ def move_LB(start):
             start[0] -= 1
             start[1] -= 1
 
+# 입력 받기
 K, S, N = input().split()
 N = int(N)
 K = list(K)
 
-
+# 숫자로 변환
 K_start = [ord(K[0]),int(K[1])]
 S_start = [ord(S[0]),int(S[1])]
 
+# 입력에 따라 실행
 for _ in range(N):
     M = input()
     if M == 'R':
         move_R(K_start)
+        # 돌멩이 자리로 가면
         if K_start == S_start:
+            # 돌멩이가 갈데가 없으면
             if S_start[0] == 72:
+                # 원상 복귀
                 K_start[0] -= 1
+            # 아니면 돌멩이도 가기
             else:
                 move_R(S_start)
 
@@ -124,6 +130,7 @@ for _ in range(N):
             else:
                 move_LB(S_start)
 
+# 좌표 변환 후 출력
 x1 = chr(K_start[0])
 x2 = chr(S_start[0])
 y1 = K_start[1]
