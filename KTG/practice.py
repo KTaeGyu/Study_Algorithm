@@ -1,53 +1,68 @@
 import sys
 sys.stdin = open("test.txt", "r")
-from collections import deque
+
+R, C = map(int, input().split())
+word = []
+arr = [input() for _ in range(R)]
+visited1 = [[0]*C for _ in range(R)]
+visited2 = [[0]*C for _ in range(R)]
+cnt = 0
+def checkrow(x,y):
+    global visited1
+    oneword = ''
+    for i in range(C):
+        if x+i <= C-1:
+            if arr[y][x+i] == '#':
+                if len(oneword) != 1:
+                    word.append(oneword)
+                    break
+            else:
+                oneword += arr[y][x+i]
+                visited1[y][x+i] = 1
+                if x+i == C-1:
+                    if len(oneword) != 1:
+                        word.append(oneword)
+                # print(visited,'a')
+def checkcol(x,y):
+    global visited2
+    oneword2 = ''
+    for i in range(R):
+        if y+i <= R-1:
+            if arr[y+i][x] == '#':
+                if len(oneword2) != 1:
+                    word.append(oneword2)
+                    break
+                break
+            else:
+                oneword2 += arr[y+i][x]
+                visited2[y+i][x] = 1
+                if y+i == R-1:
+                    if len(oneword2) != 1:
+                        word.append(oneword2)
 
 
-def bfs(y, x):
-    q = deque()
-    q.append((y, x, arr[0][0]))
-    v = [[float('inf')] * N for _ in range(N)]
-    v[0][0] = arr[0][0]
-    while q:
-        cy, cx, fuel = q.pop()
-        for dy, dx in directions:
-            ny, nx = cy + dy, cx + dx
-            if 0 > ny or ny >= N or 0 > nx or nx >= N:
-                continue
-            if v[ny][nx] <= fuel + arr[ny][nx]:
-                continue
-            q.append((ny, nx, fuel + arr[ny][nx]))
-            v[ny][nx] = fuel + arr[ny][nx]
-        if (cy, cx) == (TN[0], TN[1]):
-            if v[TN[2]][TN[3]] <= fuel + TN[4]:
-                continue
-            q.append((TN[2], TN[3], fuel + TN[4]))
-            v[TN[2]][TN[3]] = fuel + TN[4]
-        if (cy, cx) == (TN[2], TN[3]):
-            if v[TN[0]][TN[1]] <= fuel + TN[4]:
-                continue
-            q.append((TN[0], TN[1], fuel + TN[4]))
-            v[TN[0]][TN[1]] = fuel + TN[4]
-    return v
+for i in range(R):
+    for j in range(C):
+        if arr[i][j] == '#':
+            visited1[i][j] = 1
+            visited2[i][j] = 1
 
+for i in range(R):
+    for j in range(C):
+        if arr[i][j] == '#':
+            continue
+        else:
+            if not visited1[i][j]:
+                checkrow(j,i)
 
-T = int(input())
-for tc in range(1, T+1):
-    N, M = map(int, input().split())
-    arr = [list(map(int, input().split())) for _ in range(N)]
-    TN = list(map(int, input().split()))
-    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-    ans = bfs(0, 0)[N-1][N-1]
-    print(ans)
+for j in range(C):
+    for i in range(R):
+        if arr[i][j] == '#':
+            continue
+        else:
+            if not visited2[i][j]:
+                checkcol(j,i)
 
-"""
-1
-6 1
-5 1 8 0 5 4 
-7 6 4 5 3 5 
-4 0 2 7 8 6 
-3 2 8 7 8 3 
-9 0 0 0 2 8 
-4 9 3 5 4 0 
-1 3 1 5 1
-"""
+print(word)
+word.sort()
+print(word[0])
